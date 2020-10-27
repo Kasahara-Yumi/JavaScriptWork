@@ -204,3 +204,67 @@ console.log(toDateJa("今日は2020-10-10です"));
 /* 参考
 https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions
 */
+
+// Code Point
+console.log();
+console.log("あ".codePointAt(0));
+console.log(String.fromCodePoint(12354));
+console.log(String.fromCodePoint(0x3042)); 
+console.log("あ".codePointAt(0).toString(16));
+
+
+console.log();
+// 文字列をCode Unit(16進数)の配列にして返す
+function convertCodeUnits(str) {
+    const codeUnits = [];
+    for (let i = 0; i < str.length; i++) {
+        codeUnits.push(str.charCodeAt(i).toString(16));
+    }
+    return codeUnits;
+}
+// 文字列をCode Point(16進数)の配列にして返す
+function convertCodePoints(str) {
+    return Array.from(str).map(char => {
+        return char.codePointAt(0).toString(16);
+    });
+}
+const str20 = "アオイ";
+const codeUnits1 = convertCodeUnits(str20);
+console.log(codeUnits1);
+const codePoints1 = convertCodePoints(str20);
+console.log(codePoints1);
+
+const str21 = "リンゴ🍎";
+const codeUnits2 = convertCodeUnits(str21);
+console.log(codeUnits2);
+const codePoints2 = convertCodePoints(str21);
+console.log(codePoints2);
+
+// ↓文字化けして表示されない
+console.log();
+console.log("\uD867\uDE3D");
+console.log("\u{29e3d}");
+console.log("\uD83C\uDF4E");
+console.log("\u{1F34E}");
+
+console.log("𩸽"[0]);
+console.log("𩸽"[1]);
+console.log("🍎".length);
+
+function countOfCodePoints1(str, codePoint) {
+    return Array.from(str).filter(item => {
+        return item === codePoint;
+    }).length;
+}
+console.log(countOfCodePoints1("🍎🍇🍎🥕🍒", "🍎"));
+
+function countOfCodePoints2(str, codePoint) {
+    let count = 0;
+    for (const item of str) {
+        if (item === codePoint) {
+            count++;
+        }
+    }
+    return count;
+}
+console.log(countOfCodePoints2("🍎🍇🍎🥕🍒", "🍎"));
