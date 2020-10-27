@@ -1,5 +1,3 @@
-# JavaScriptWork
-
 ## 参考サイト
 - js  
 https://jsprimer.net/  
